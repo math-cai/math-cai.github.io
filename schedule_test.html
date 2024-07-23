@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Schedule App</title>
+<style>
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #ddd; padding: 8px; }
+  .button-container { text-align: center; margin-top: 20px; }
+</style>
+</head>
+<body>
+ 
+<h2>My Schedule</h2>
+ 
+<table>
+  <tr>
+    <th>Time</th>
+    <th>Activity</th>
+    <th>Actions</th>
+  </tr>
+  <tbody id="schedule-body">
+    <!-- Schedule items will be added here -->
+  </tbody>
+</table>
+ 
+<div class="button-container">
+  <button onclick="addScheduleItem()">Add Item</button>
+</div>
+ 
+<script>
+  let scheduleCount = 0;
+ 
+  function addScheduleItem() {
+    const timeInput = prompt("Enter time for the activity:");
+    const activityInput = prompt("Enter activity:");
+ 
+    if (timeInput && activityInput) {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${timeInput}</td>
+        <td>${activityInput}</td>
+        <td>
+          <button onclick="editScheduleItem(this)">Edit</button>
+          <button onclick="deleteScheduleItem(this)">Delete</button>
+        </td>
+      `;
+      document.getElementById('schedule-body').appendChild(row);
+    }
+  }
+ 
+  function editScheduleItem(button) {
+    const row = button.parentNode.parentNode;
+    const time = row.getElementsByTagName('td')[0].textContent;
+    const activity = row.getElementsByTagName('td')[1].textContent;
+    const newTime = prompt("Enter new time for the activity, or leave blank to keep the current time:", time);
+    const newActivity = prompt("Enter new activity, or leave blank to keep the current activity:", activity);
+ 
+    if (newTime || newActivity) {
+      row.getElementsByTagName('td')[0].textContent = newTime || time;
+      row.getElementsByTagName('td')[1].textContent = newActivity || activity;
+    }
+  }
+ 
+  function deleteScheduleItem(button) {
+    if (confirm("Are you sure you want to delete this item?")) {
+      const row = button.parentNode.parentNode;
+      document.getElementById('schedule-body').removeChild(row);
+    }
+  }
+</script>
+ 
+</body>
+</html>
