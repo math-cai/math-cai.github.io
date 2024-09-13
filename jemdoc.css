@@ -13,25 +13,26 @@ body {
 	margin: 0;
 }
 
-#layout-menu {
+ #layout-menu {
+		/* position: fixed; */
 	background: #f6f6f6;
 	border: 1px solid #dddddd;
 	padding-top: 0.5em;
 	padding-left: 8px;
 	padding-right: 8px;
 	font-size: 1.0em;
-	width: auto;
+	  width: auto;   
 	white-space: nowrap;
     text-align: left;
-    vertical-align: top;
-}
+    vertical-align: top; 
+} 
 
 #layout-menu td {
 	background: #f4f4f4;
-    vertical-align: top;
+    vertical-align: top; 
 }
 
-#layout-content {
+ #layout-content {
 	padding-top: 0.0em;
 	padding-left: 1.0em;
 	padding-right: 1.0em;
@@ -39,12 +40,12 @@ body {
     background: white;
     text-align: left;
     vertical-align: top;
-}
+} 
 
-#layout-menu a {
+ #layout-menu a {
 	line-height: 1.5em;
 	margin-left: 0.5em;
-}
+} 
 
 tt {
     background: #ffffdd;
@@ -84,10 +85,10 @@ div.menu-category {
 	font-weight: bold;
 }
 
-div.menu-item {
+ div.menu-item {
 	padding-left: 16px;
 	text-indent: -16px;
-}
+} 
 
 div#toptitle {
 	padding-bottom: 0.2em;
@@ -168,10 +169,10 @@ div#footer a {
 	color: #80a0b0;
 }
 
-div#footer-text {
+ div#footer-text {
 	float: left;
 	padding-bottom: 8px;
-}
+} 
 
 ul, ol, dl {
 	margin-top: 0.2em;
@@ -186,7 +187,7 @@ dt {
 
 dl {
 	margin-left: 20px;
-}
+} 
 
 dd {
 	color: #222222;
@@ -361,7 +362,8 @@ img {
     border: none;
 }
 
+
 table.imgtable, table.imgtable td {
     border: none;
     text-align: left;
-}
+} 
