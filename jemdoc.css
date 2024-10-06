@@ -347,7 +347,8 @@ td {
     padding: 2px;
     padding-left: 0.5em;
     padding-right: 0.5em;
-    text-align: center;
+    /* text-align: center; */
+	
     /* border: 1px solid gray; */
 }
 
