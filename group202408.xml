@@ -1,0 +1,63 @@
+
+<td>   
+  <img fetchpriority="high" decoding="async" width="200" src="img_team/haicheng.jpg" sizes="(max-width: 400px) 100vw, 400px" class="img-responsive" style="float: left;">
+  <br>
+   <p>Haicheng Zhang 张海成 </p>
+   <p>  2023.6&ndash;2024.8 </p>
+   <p>visiting student from ECNU  </p>
+   <!-- <p>Email: hczhang22@stu.ecnu.edu.cn</p> -->
+  </td>
+
+  <td>
+    <img fetchpriority="high" decoding="async" width="240" src="img_team/qingtao.jpg"  class="img-responsive" style="float: left;">
+    <br>
+    <p>Qingtao Li 李清涛 </p>
+   <p>  2023.6&ndash; 2024.8</p>
+   <p>visiting student from ECNU  </p>
+  <!-- <p> Email: 52265500022@stu.ecnu.edu.cn </p> -->
+  </td>
+
+
+  <td>
+    <img fetchpriority="high" decoding="async" width="200" src="img_team/zhengrong.jpg"  class="img-responsive" style="float: left;">
+    <br>
+    <p>Zhengrong Xie 谢正荣 </p>
+    <p>  2023.6&ndash; 2024.8 </p>
+    <p>visiting student from ECNU  </p>
+    <!-- <p> Email: 52265500018@stu.ecnu.edu.cn</p> -->
+    </td>
+ 
+    <tr>
+        <td>     
+          <a href="https://krigo-liu.github.io/blog/">
+             <img fetchpriority="high" decoding="async" width="220" src="img_team/yuhao.jpg" sizes="(max-width: 400px) 100vw, 400px" class="img-responsive"  style="float: left;" >
+             </a>
+          <br>
+           <p><a href="https://krigo-liu.github.io/blog/">Yuhao Liu  刘宇豪</a> </p>
+           <p>  2024.3&ndash;2024.6 </p>
+           <p> UIC </p> 
+           <p> Position after graduation: Master student at Rice University</p>
+          </td> 
+ 
+        <td>    
+        <img fetchpriority="high" decoding="async" width="220" src="img_team/ruolin1.jpg"  class="img-responsive" style="float: left;">
+        <br>
+        <p>Ruolin Shao  邵若琳</p>
+        <p>  2023.11&ndash;2024.6 </p>
+        <p> Beijing Normal University</p>
+        <p> 北京师范大学本科生优秀毕业论文奖 </p>
+        <p> Position after graduation: </p>
+        <p> Master student at Wuhan University</p>
+      </td> 
+ 
+        <td>   
+    <img fetchpriority="high" decoding="async" width="200" src="img_team/fengyang.jpg"  class="img-responsive" style="float: left;">
+    <br>
+    <p>Fengyan Wang 王风扬 </p>
+    <p>  2022.9&ndash;2024.6</p>
+    <p> UIC  </p>
+    <p>Position after graduation: </p> 
+    <p>Master student at Rutgers University</p>
+     </td> 
+
+    </tr>
