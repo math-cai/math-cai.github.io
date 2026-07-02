@@ -7,8 +7,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open vita.html",
-            "file": "d:\\jianguoyun\\jianguoyun\\web\\HomePage-master20220416\\vita.html"
+            "name": "Open index.html",
+            "file": "d:\\jianguoyun\\jianguoyun\\web\\HomePage-master20220416\\index.html"
         }
     ]
 }
