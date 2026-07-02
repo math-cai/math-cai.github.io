@@ -277,16 +277,26 @@
         }
         .research-card a:hover { text-decoration: underline; }
 
-        /* ── Shear flow animation ── */
+        /* ── Simulation animations ── */
+        .visual-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
         .visual-banner {
-            margin: 2rem 0 0;
             text-align: center;
             padding: 2rem;
             background: linear-gradient(135deg, #f0f4fa 0%, #e8edf5 100%);
             border-radius: 12px;
             border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         .visual-banner img {
+            width: 100%;
             max-width: 340px;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -485,6 +495,7 @@
             .nav-toggle { display: block; }
             .section { padding: 2rem 1.5rem; }
             .research-grid { grid-template-columns: 1fr; }
+            .visual-row { grid-template-columns: 1fr; }
             .pub-list li { padding-left: 2.8rem; }
             .pub-list li:hover { padding-left: 3.8rem; }
         }
@@ -569,14 +580,16 @@
         </div>
     </div>
 
-    <div class="visual-banner">
-        <img src="shearmovie.gif" alt="Shear flow simulation">
-        <div class="caption">Shear Flow Simulation</div>
-    </div>
+    <div class="visual-row">
+        <div class="visual-banner">
+            <img src="shearmovie.gif" alt="Shear flow simulation">
+            <div class="caption">Shear Flow Simulation</div>
+        </div>
 
-    <div class="visual-banner">
-        <img src="sedov_anim.gif" alt="Sedov blast wave">
-        <div class="caption">Sedov blast wave (made by Haoran Qiao)</div>
+        <div class="visual-banner">
+            <img src="sedov_anim.gif" alt="Sedov blast wave">
+            <div class="caption">Sedov blast wave (made by Haoran Qiao)</div>
+        </div>
     </div>
 </section>
 </div>
