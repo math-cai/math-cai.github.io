@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation Gallery — Xiaofeng Cai (蔡晓峰)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1a2e;
+            --ink-light: #3d3d5c;
+            --ink-muted: #6b6b8a;
+            --ink-faint: #9a9ab5;
+            --accent: #2d5a8e;
+            --accent-deep: #1e3f66;
+            --accent-glow: #4a8fd4;
+            --surface: #fafbfd;
+            --surface-warm: #f5f3ef;
+            --surface-card: #ffffff;
+            --border: #e2e4ea;
+            --border-light: #eef0f4;
+            --highlight: #edf4ff;
+            --serif: 'Crimson Pro', Georgia, serif;
+            --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
+            --mono: 'JetBrains Mono', 'Consolas', monospace;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: var(--sans);
+            color: var(--ink);
+            background: var(--surface);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Navigation ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 251, 253, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+            transition: box-shadow 0.3s;
+        }
+        nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .nav-brand {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-brand span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--ink-muted);
+            text-decoration: none;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: color 0.25s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a.active { color: var(--accent); }
+        .nav-links a.active::after { width: 100%; }
+
+        .nav-toggle { display: none; cursor: pointer; background: none; border: none; padding: 6px; }
+        .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 5px 0; transition: 0.3s; }
+
+        /* ── Page header ── */
+        .page-header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3.5rem 2rem 1rem;
+        }
+        .page-header h1 {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+        .page-header p {
+            margin-top: 0.6rem;
+            max-width: 640px;
+            font-size: 1rem;
+            color: var(--ink-muted);
+        }
+
+        /* ── Gallery sections ── */
+        .section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--ink);
+        }
+        .section-header h2 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+        .section-header .sub {
+            font-size: 0.82rem;
+            color: var(--ink-faint);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* ── Animation cards (hover to play) ── */
+        .anim-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .anim-card {
+            margin: 0;
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .anim-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+        }
+        .anim-media {
+            position: relative;
+            background: linear-gradient(135deg, #f0f4fa 0%, #e8edf5 100%);
+        }
+        .anim-media video,
+        .anim-media img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: contain;
+        }
+        .anim-media .play-hint {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(26, 26, 46, 0.65);
+            color: #fff;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            transition: opacity 0.25s;
+        }
+        .anim-card.playing .play-hint,
+        .anim-card.gif-fallback .play-hint { opacity: 0; }
+
+        .anim-card figcaption {
+            padding: 0.9rem 1.2rem 1.1rem;
+            border-top: 1px solid var(--border-light);
+        }
+        .anim-card figcaption .title {
+            font-family: var(--serif);
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--accent-deep);
+        }
+        .anim-card figcaption .desc {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            margin-top: 0.2rem;
+            line-height: 1.55;
+        }
+        .anim-card figcaption .paper-link {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            font-family: var(--mono);
+            color: var(--accent);
+            padding: 0.15rem 0.55rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            transition: all 0.2s;
+        }
+        .anim-card figcaption .paper-link:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* ── Back link ── */
+        .back-home {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 2rem 3rem;
+        }
+        .back-home a {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .back-home a:hover { text-decoration: underline; }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--ink);
+            color: var(--ink-faint);
+            padding: 3rem 2rem;
+        }
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-inner a {
+            color: var(--accent-glow);
+            text-decoration: none;
+        }
+        .footer-inner a:hover { text-decoration: underline; }
+        .footer-contact {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .footer-contact strong { color: rgba(255,255,255,0.85); }
+        .footer-copy {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px; left: 0; right: 0;
+                background: rgba(250,251,253,0.98);
+                backdrop-filter: blur(16px);
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-toggle { display: block; }
+            .page-header { padding: 2.5rem 1.5rem 0.5rem; }
+            .section { padding: 2rem 1.5rem; }
+            .anim-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav id="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-brand">X. <span>Cai</span></a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#about">Home</a></li>
+            <li><a href="index.html#research">Research</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+            <li><a href="index.html#publications">Publications</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Page header -->
+<header class="page-header">
+    <h1>Simulation Gallery</h1>
+    <p>
+        Animations from our research on high-order numerical methods,
+        semi-Lagrangian schemes, and structure-preserving algorithms.
+        Hover over a card to play (tap on mobile).
+    </p>
+</header>
+
+<!-- ═══ Section 1: Fluid Dynamics & Conservation Laws ═══ -->
+<section class="section">
+    <div class="section-header">
+        <h2>Fluid Dynamics &amp; Conservation Laws</h2>
+        <span class="sub">Euler equations · Incompressible flow</span>
+    </div>
+
+    <div class="anim-grid">
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="shearmovie.mp4" data-gif="shearmovie.gif" aria-label="Shear flow simulation"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>
+                <div class="title">Shear Flow Simulation</div>
+                <span class="desc">
+                    Semi-Lagrangian discontinuous Galerkin simulation of the shear flow
+                    problem for the two-dimensional incompressible Euler equations.
+                </span>
+            </figcaption>
+        </figure>
+
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="sedov_anim.mp4" data-gif="sedov_anim.gif" aria-label="Sedov blast wave"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>
+                <div class="title">Sedov Blast Wave</div>
+                <span class="desc">
+                    Lagrangian simulation of the Sedov point-blast problem for the
+                    compressible Euler equations. Made by Haoran Qiao.
+                </span>
+            </figcaption>
+        </figure>
+
+        <!--
+        ── To add a new animation, copy this template ──
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="YOUR_MOVIE.mp4" data-gif="YOUR_MOVIE.gif" aria-label="Short description"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>
+                <div class="title">Animation Title</div>
+                <span class="desc">One or two sentences describing the problem and the method.</span>
+                <a class="paper-link" href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank">Related paper</a>
+            </figcaption>
+        </figure>
+        -->
+    </div>
+</section>
+
+
+
+<!-- ═══ Section 3: Transport on Unstructured Meshes ═══ -->
+<section class="section">
+    <div class="section-header">
+        <h2>Transport on Unstructured Meshes</h2>
+        <span class="sub">Curvilinear meshes · Eulerian-Lagrangian DG</span>
+    </div>
+
+
+     <div class="anim-grid">
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="weno_ani_1.mp4" data-gif="weno_ani_1.gif" aria-label="Swirling deformation"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>
+                <div class="title">Swirling Deformation Simulation</div>
+                <span class="desc">
+                    High order Semi-Lagrangian discontinuous Galerkin method on curvilinear unstructured mesh of the swirling deformation
+                    problem.
+                </span>
+            </figcaption>
+        </figure>
+
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="weno_ani_2.mp4" data-gif="weno_ani_2.gif" aria-label="Swirling deformation"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>
+                <div class="title">Swirling Deformation Simulation</div>
+                <span class="desc">
+                  Cai, Chen, Fu, Pan.  SIAM journal on Scientific Computing. Made by Kunkai Fu.
+                </span>
+            </figcaption>
+        </figure>
+    </div>   
+    <!-- <div class="anim-grid"> -->
+        <!-- Add cards here, e.g. animations from the SISC 2026 paper on
+             curvilinear unstructured meshes. Use the template in Section 1. -->
+    <!-- </div> -->
+
+</section>
+
+
+
+<!-- ═══ Section 3: High order remapping algorithm on curvilinear unstructured mesh ═══ -->
+<section class="section">
+    <div class="section-header">
+        <h2>High order remapping algorithm on curvilinear unstructured mesh</h2>
+        <span class="sub">Curvilinear meshes · Remapping method</span>
+    </div>
+
+
+     <div class="anim-grid">
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="animation_3shape_1.mp4" data-gif="animation_3shape_1.gif" aria-label="Remapping"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>
+                <div class="title">Conservation remapping algorithm</div>
+                <span class="desc">
+                    High order remapping algorithm on curvilinear unstructured mesh
+                </span>
+            </figcaption>
+        </figure>
+
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="animation_3shape_2.mp4" data-gif="animation_3shape_2.gif" aria-label="Remapping"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>
+                <div class="title">Conservative remapping algorithm</div>
+                <span class="desc">
+                  High order remapping algorithm on curvilinear unstructured mesh. Made by Kunkai Fu.
+                </span>
+            </figcaption>
+        </figure>
+    </div>   
+    <!-- <div class="anim-grid"> -->
+        <!-- Add cards here, e.g. animations from the SISC 2026 paper on
+             curvilinear unstructured meshes. Use the template in Section 1. -->
+    <!-- </div> -->
+
+</section>
+
+
+
+<!-- ═══ Section 2: Kinetic & Plasma Simulations ═══ -->
+<section class="section">
+    <div class="section-header">
+        <h2>Kinetic &amp; Plasma Simulations</h2>
+        <span class="sub">Vlasov-Poisson · Vlasov-Maxwell · Vlasov-Ampère</span>
+    </div>
+
+    <div class="anim-grid">
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="vm.mp4" data-gif="vm.gif" aria-label="magnetic reconnection"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>
+                <div class="title">magnetic reconnection</div>
+                <span class="desc">
+                    magnetic reconnection
+                </span>
+            </figcaption>
+        </figure>
+
+        <!-- Add more kinetic-simulation cards here using the template above -->
+    </div>
+</section>
+
+<div class="back-home">
+    <a href="index.html">← Back to homepage</a>
+</div>
+
+<!-- Footer -->
+<footer id="contact">
+    <div class="footer-inner">
+        <div class="footer-contact">
+            <strong>Xiaofeng Cai</strong> · Associate Professor, Beijing Normal University<br>
+            <a href="mailto:xfcai@bnu.edu.cn">xfcai@bnu.edu.cn</a> · Lijiao Building B408, Zhuhai Campus
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 Xiaofeng Cai. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// Mobile toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// Hover-to-play animation cards (with GIF fallback if the .mp4 is missing)
+document.querySelectorAll('.anim-card').forEach(card => {
+    const video = card.querySelector('video');
+    if (!video) return;
+
+    video.addEventListener('error', () => {
+        const gif = video.dataset.gif;
+        if (!gif) return;
+        const img = document.createElement('img');
+        img.src = gif;
+        img.alt = video.getAttribute('aria-label') || 'Simulation animation';
+        img.loading = 'lazy';
+        video.replaceWith(img);
+        card.classList.add('gif-fallback');
+    });
+
+    video.addEventListener('play',  () => card.classList.add('playing'));
+    video.addEventListener('pause', () => card.classList.remove('playing'));
+
+    card.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
+    card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+
+    card.addEventListener('click', () => {
+        if (video.paused) { video.play().catch(() => {}); }
+        else { video.pause(); }
+    });
+});
+</script>
+
+</body>
+</html>

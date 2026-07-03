@@ -277,30 +277,86 @@
         }
         .research-card a:hover { text-decoration: underline; }
 
-        /* ── Simulation animations ── */
-        .visual-row {
+        /* ── Simulation animation cards (hover to play) ── */
+        .anim-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
-        .visual-banner {
-            text-align: center;
-            padding: 2rem;
-            background: linear-gradient(135deg, #f0f4fa 0%, #e8edf5 100%);
+        .anim-card {
+            margin: 0;
+            background: var(--surface-card);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            border: 1px solid var(--border-light);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .visual-banner img {
+        .anim-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+        }
+        .anim-media {
+            position: relative;
+            background: linear-gradient(135deg, #f0f4fa 0%, #e8edf5 100%);
+        }
+        .anim-media video,
+        .anim-media img {
+            display: block;
             width: 100%;
-            max-width: 340px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            aspect-ratio: 4 / 3;
+            object-fit: contain;
         }
+        .anim-media .play-hint {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(26, 26, 46, 0.65);
+            color: #fff;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            transition: opacity 0.25s;
+        }
+        .anim-card.playing .play-hint,
+        .anim-card.gif-fallback .play-hint { opacity: 0; }
+        .anim-card figcaption {
+            padding: 0.9rem 1.2rem;
+            font-family: var(--serif);
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--accent-deep);
+            border-top: 1px solid var(--border-light);
+        }
+        .anim-card figcaption .by {
+            display: block;
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--ink-muted);
+            margin-top: 0.15rem;
+        }
+        .anim-more {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        .anim-more a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.55rem 1.4rem;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            transition: all 0.25s;
+        }
+        .anim-more a:hover { background: var(--accent); color: #fff; }
         .visual-banner .caption {
             margin-top: 0.8rem;
             font-family: var(--serif);
@@ -495,7 +551,7 @@
             .nav-toggle { display: block; }
             .section { padding: 2rem 1.5rem; }
             .research-grid { grid-template-columns: 1fr; }
-            .visual-row { grid-template-columns: 1fr; }
+            .anim-grid { grid-template-columns: 1fr; }
             .pub-list li { padding-left: 2.8rem; }
             .pub-list li:hover { padding-left: 3.8rem; }
         }
@@ -510,6 +566,7 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="#about">Home</a></li>
             <li><a href="#research">Research</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
             <li><a href="#publications">Publications</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -580,16 +637,34 @@
         </div>
     </div>
 
-    <div class="visual-row">
-        <div class="visual-banner">
-            <img src="shearmovie.gif" alt="Shear flow simulation">
-            <div class="caption">Shear Flow Simulation</div>
-        </div>
+    <div class="anim-grid">
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="shearmovie.mp4" data-gif="shearmovie.gif" aria-label="Shear flow simulation"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>Shear Flow Simulation</figcaption>
+        </figure>
 
-        <div class="visual-banner">
-            <img src="sedov_anim.gif" alt="Sedov blast wave">
-            <div class="caption">Sedov blast wave (made by Haoran Qiao)</div>
-        </div>
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="sedov_anim.mp4" data-gif="sedov_anim.gif" aria-label="Sedov blast wave"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>Sedov Blast Wave<span class="by">made by Haoran Qiao</span></figcaption>
+        </figure>
+
+        <figure class="anim-card">
+            <div class="anim-media">
+                <video muted loop playsinline preload="metadata" src="animate_3.mp4" data-gif="animate_3.gif" aria-label="Simulation animation"></video>
+                <span class="play-hint">▶</span>
+            </div>
+            <figcaption>Global transport Simulation</figcaption>
+        </figure>
+    </div>
+
+    <div class="anim-more">
+        <a href="gallery.html">View Full Simulation Gallery →</a>
     </div>
 </section>
 </div>
@@ -846,6 +921,37 @@ navToggle.addEventListener('click', () => {
 // Close mobile menu on link click
 navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// Hover-to-play animation cards (with GIF fallback if the .mp4 is missing)
+document.querySelectorAll('.anim-card').forEach(card => {
+    const video = card.querySelector('video');
+    if (!video) return;
+
+    // If the mp4 fails to load, fall back to the GIF version
+    video.addEventListener('error', () => {
+        const gif = video.dataset.gif;
+        if (!gif) return;
+        const img = document.createElement('img');
+        img.src = gif;
+        img.alt = video.getAttribute('aria-label') || 'Simulation animation';
+        img.loading = 'lazy';
+        video.replaceWith(img);
+        card.classList.add('gif-fallback');
+    });
+
+    video.addEventListener('play',  () => card.classList.add('playing'));
+    video.addEventListener('pause', () => card.classList.remove('playing'));
+
+    // Desktop: play on hover, reset on leave
+    card.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
+    card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+
+    // Touch devices: tap to toggle
+    card.addEventListener('click', () => {
+        if (video.paused) { video.play().catch(() => {}); }
+        else { video.pause(); }
+    });
 });
 </script>
 
